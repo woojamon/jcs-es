@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Domain
 {
-    public class PurchaseOrderCreated
+    public class PurchaseOrderCreated : ICreatePurchaseOrderResult
     {
         public PurchaseOrderCreated(
             Guid purchaseOrderId,

@@ -96,3 +96,4 @@
 /Users/jameswoodley/Source/jcs-es/tests/Persistence.Tests/obj/Debug/net5.0/ref/persistence.tests.dll
 /Users/jameswoodley/Source/jcs-es/tests/Persistence.Tests/obj/Debug/net5.0/persistence.tests.pdb
 /Users/jameswoodley/Source/jcs-es/tests/persistence.tests/obj/Debug/net5.0/persistence.tests.genruntimeconfig.cache
+/Users/jameswoodley/Source/jcs-es/tests/Persistence.Tests/obj/Debug/net5.0/persistence.tests.csprojAssemblyReference.cache

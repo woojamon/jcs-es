@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v5.0": {
-      "Domain/1.0.0": {
+      "domain/1.0.0": {
         "runtime": {
-          "Domain.dll": {}
+          "domain.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "Domain/1.0.0": {
+    "domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
