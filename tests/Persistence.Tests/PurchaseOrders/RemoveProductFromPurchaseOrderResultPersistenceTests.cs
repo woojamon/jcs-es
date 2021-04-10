@@ -28,6 +28,7 @@ namespace Persistence.Tests.PurchaseOrders
             // Get the expected document dictionary.
             var expected = new BsonDocument()
                 .Add(new BsonElement("_id", BsonString.Create(nextId.ToString())))
+                .Add(new BsonElement("_type", BsonString.Create(nameof(ProductRemovedFromPurchaseOrder))))
                 .Add(new BsonElement(nameof(ProductRemovedFromPurchaseOrder.PurchaseOrderId), new BsonString(@event.PurchaseOrderId.ToString())))
                 .Add(new BsonElement(nameof(ProductRemovedFromPurchaseOrder.ProductId), new BsonString(@event.ProductId.ToString())));
 
@@ -66,6 +67,7 @@ namespace Persistence.Tests.PurchaseOrders
             // Get the expected document dictionary.
             var expected = new BsonDocument()
                 .Add(new BsonElement("_id", BsonString.Create(nextId.ToString())))
+                .Add(new BsonElement("_type", BsonString.Create(nameof(CannotRemoveProductsFromPaidPurchaseOrder))))
                 .Add(new BsonElement(nameof(CannotRemoveProductsFromPaidPurchaseOrder.PurchaseOrderId), new BsonString(@event.PurchaseOrderId.ToString())));
 
             // Mock up a mongo client for the mongo db event store.

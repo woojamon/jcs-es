@@ -43,6 +43,7 @@ namespace Persistence.Tests.PurchaseOrders
             // Get the expected document dictionary.
             var expected = new BsonDocument()
                 .Add(new BsonElement("_id", BsonString.Create(nextId.ToString())))
+                .Add(new BsonElement("_type", BsonString.Create(nameof(PurchaseOrderCreated))))
                 .Add(new BsonElement(nameof(PurchaseOrderCreated.PurchaseOrderId), new BsonString(@event.PurchaseOrderId.ToString())))
                 .Add(new BsonElement(nameof(PurchaseOrderCreated.Status), new BsonString(Enum.GetName<PurchaseOrderStatus>(@event.Status))))
                 .Add(new BsonElement(nameof(PurchaseOrderCreated.VendorId), new BsonString(@event.VendorId.ToString())))
@@ -93,7 +94,8 @@ namespace Persistence.Tests.PurchaseOrders
             // Get the expected document dictionary.
             var expected = new BsonDocument()
                 .Add(new BsonElement("_id", BsonString.Create(nextId.ToString())))
-                .Add(new BsonElement(nameof(PurchaseOrderCreated.VendorId), new BsonString(@event.VendorId.ToString())));
+                .Add(new BsonElement("_type", BsonString.Create(nameof(VendorDoesNotExist))))
+                .Add(new BsonElement(nameof(VendorDoesNotExist.VendorId), new BsonString(@event.VendorId.ToString())));
 
             // Mock up a mongo client for the mongo db event store.
             BsonDocument actual = null;

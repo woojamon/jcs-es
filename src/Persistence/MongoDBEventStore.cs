@@ -137,6 +137,7 @@ namespace Persistence
         static BsonDocument Map(VendorDoesNotExist @event)
         {
             return new BsonDocument()
+                .Add(new BsonElement("_type", BsonString.Create(nameof(VendorDoesNotExist))))
                 .Add(new BsonElement(nameof(VendorDoesNotExist.VendorId), BsonString.Create(@event.VendorId.ToString())));
         }
 
@@ -153,6 +154,7 @@ namespace Persistence
         static BsonDocument Map(AddProductToPurchaseOrder @event)
         {
             return new BsonDocument()
+                .Add(new BsonElement("_type", BsonString.Create(nameof(AddProductToPurchaseOrder))))
                 .Add(new BsonElement(nameof(AddProductToPurchaseOrder.PurchaseOrderId), BsonString.Create(@event.PurchaseOrderId.ToString())))
                 .Add(new BsonElement(nameof(AddProductToPurchaseOrder.ProductId), BsonString.Create(@event.ProductId.ToString())))
                 .Add(nameof(AddProductToPurchaseOrder.Measure), BsonString.Create(@event.Measure))
@@ -162,6 +164,7 @@ namespace Persistence
         static BsonDocument Map(CannotAddProductsToPaidPurchaseOrder @event)
         {
             return new BsonDocument()
+                .Add(new BsonElement("_type", BsonString.Create(nameof(CannotAddProductsToPaidPurchaseOrder))))
                 .Add(new BsonElement(nameof(CannotAddProductsToPaidPurchaseOrder.PurchaseOrderId), BsonString.Create(@event.PurchaseOrderId.ToString())));
         }
 
@@ -176,6 +179,7 @@ namespace Persistence
         static BsonDocument Map(RemoveProductFromPurchaseOrder @event)
         {
             return new BsonDocument()
+                .Add(new BsonElement("_type", BsonString.Create(nameof(RemoveProductFromPurchaseOrder))))
                 .Add(new BsonElement(nameof(RemoveProductFromPurchaseOrder.PurchaseOrderId), BsonString.Create(@event.PurchaseOrderId.ToString())))
                 .Add(new BsonElement(nameof(RemoveProductFromPurchaseOrder.ProductId), BsonString.Create(@event.ProductId.ToString())));
         }
@@ -183,6 +187,7 @@ namespace Persistence
         static BsonDocument Map(CannotRemoveProductsFromPaidPurchaseOrder @event)
         {
             return new BsonDocument()
+                .Add(new BsonElement("_type", BsonString.Create(nameof(CannotRemoveProductsFromPaidPurchaseOrder))))
                 .Add(new BsonElement(nameof(CannotRemoveProductsFromPaidPurchaseOrder.PurchaseOrderId), BsonString.Create(@event.PurchaseOrderId.ToString())));
         }
     }
