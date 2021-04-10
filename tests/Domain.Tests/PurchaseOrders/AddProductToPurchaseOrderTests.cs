@@ -20,7 +20,7 @@ namespace Domain.Tests
             );
 
             // Get a purchase order aggregate to use  
-            // when removing a product To a purchase order.
+            // when adding a product to a purchase order.
             var purchaseOrder = new PurchaseOrderForAddProductTask(
                 purchaseOrderId: command.PurchaseOrderId,
                 status: PurchaseOrderStatus.Paid,
@@ -28,7 +28,7 @@ namespace Domain.Tests
             );
 
             // Get a function that returns the purchase order aggregate
-            // to use when removing a product To a purchase order. 
+            // to use when adding a product to a purchase order. 
             Func<Guid, PurchaseOrderForAddProductTask> getPurchaseOrder = _ => purchaseOrder;
 
             // Get the event we expect the domain to return.
@@ -46,7 +46,7 @@ namespace Domain.Tests
         public void AddProductToPurchaseOrder_PurchaseOrderStatusIsUnPaidAndPurchaseOrderHasProduct_ReturnsProductAddedToPurchaseOrderResult()
         {
             /// Arrange
-            // Get a command to Add a product To a purchase order.
+            // Get a command to add a product to a purchase order.
             var command = new AddProductToPurchaseOrder(
                 purchaseOrderId: Guid.NewGuid(),
                 productId: Guid.NewGuid(),
@@ -55,7 +55,7 @@ namespace Domain.Tests
             );
 
             // Get a purchase order aggregate to use  
-            // when removing a product To a purchase order,
+            // when adding a product to a purchase order,
             // and make sure that it has the product.
             var purchaseOrder = new PurchaseOrderForAddProductTask(
                 purchaseOrderId: command.PurchaseOrderId,
@@ -65,7 +65,7 @@ namespace Domain.Tests
             );
 
             // Get a function that returns the purchase order aggregate
-            // to use when removing a product To a purchase order. 
+            // to use when adding a product to a purchase order. 
             Func<Guid, PurchaseOrderForAddProductTask> getPurchaseOrder = _ => purchaseOrder;
 
             // Get the event we expect the domain to return.
