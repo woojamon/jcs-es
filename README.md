@@ -23,6 +23,17 @@
 
    The `Actual` value is the number of milliseconds it took to rehydrate an aggregate from 10001 events.
 
+2. If you like you can issue the following commands through mongodb
+
+   ```shell
+   use jcs
+   db.events.find().pretty()
+   db.events.count()
+   db.events.drop()
+   ```
+
+   
+
    [net5]: https://dotnet.microsoft.com/download/dotnet/5.0
    [mongo]: https://www.mongodb.com/try/download/community
 
