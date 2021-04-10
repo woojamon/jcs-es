@@ -16,8 +16,8 @@ namespace Domain.Tests
             var command = new CreatePurchaseOrder(
                 vendorId: Guid.NewGuid(),
                 lines: new List<CreatePurchaseOrderLine> {
-                    new CreatePurchaseOrderLine(productId: Guid.NewGuid(), description: "2x4x8 Lumber", quantity: 354M, measure: "EA", pricePerUnit: 4.75M),
-                    new CreatePurchaseOrderLine(productId: Guid.NewGuid(), description: "500 Nails Pack", quantity: 10M, measure: "EA", pricePerUnit: 24.99M)
+                    new CreatePurchaseOrderLine(productId: Guid.NewGuid(), quantity: 354M, measure: "EA", pricePerUnit: 4.75M),
+                    new CreatePurchaseOrderLine(productId: Guid.NewGuid(), quantity: 10M, measure: "EA", pricePerUnit: 24.99M)
                 }
             );
 
@@ -37,7 +37,7 @@ namespace Domain.Tests
             );
 
             /// Act
-            var actual = Domain.CreatePurchaseOrder(getVendorExists, nextId, command);
+            var actual = JC.CreatePurchaseOrder(getVendorExists, nextId, command);
 
             /// Assert
             CustomAssert.CoreValuesAreEqual(expected, actual);
@@ -52,8 +52,8 @@ namespace Domain.Tests
             var command = new CreatePurchaseOrder(
                 vendorId: Guid.NewGuid(),
                 lines: new List<CreatePurchaseOrderLine> {
-                    new CreatePurchaseOrderLine(productId: Guid.NewGuid(), description: "2x4x8 Lumber", quantity: 354M, measure: "EA", pricePerUnit: 4.75M),
-                    new CreatePurchaseOrderLine(productId: Guid.NewGuid(), description: "500 Nails Pack", quantity: 10M, measure: "EA", pricePerUnit: 24.99M)
+                    new CreatePurchaseOrderLine(productId: Guid.NewGuid(), quantity: 354M, measure: "EA", pricePerUnit: 4.75M),
+                    new CreatePurchaseOrderLine(productId: Guid.NewGuid(), quantity: 10M, measure: "EA", pricePerUnit: 24.99M)
                 }
             );
 
@@ -67,7 +67,7 @@ namespace Domain.Tests
             var expected = new VendorDoesNotExist(command.VendorId);
 
             /// Act
-            var actual = Domain.CreatePurchaseOrder(getVendorExists, nextId, command);
+            var actual = JC.CreatePurchaseOrder(getVendorExists, nextId, command);
 
             /// Assert
             CustomAssert.CoreValuesAreEqual(expected, actual);

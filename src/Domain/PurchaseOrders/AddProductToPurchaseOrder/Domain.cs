@@ -3,12 +3,11 @@ using System.Linq;
 
 namespace Domain
 {
-    public static partial class Domain
+    public static partial class JC
     {
         public static IAddProductToPurchaseOrderResult AddProductToPurchaseOrder(
             Func<Guid, PurchaseOrderForAddProductTask> getPurchaseOrder,
-            AddProductToPurchaseOrder command
-        )
+            AddProductToPurchaseOrder command)
         {
             var purchaseOrder = getPurchaseOrder(command.PurchaseOrderId);
             if (purchaseOrder.Status == PurchaseOrderStatus.Paid) 

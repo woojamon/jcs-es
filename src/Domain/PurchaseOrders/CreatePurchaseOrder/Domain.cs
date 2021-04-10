@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Domain
 {
-    public static partial class Domain
+    public static partial class JC
     {
         public static ICreatePurchaseOrderResult CreatePurchaseOrder(
             Func<Guid, bool> getVendorExists,

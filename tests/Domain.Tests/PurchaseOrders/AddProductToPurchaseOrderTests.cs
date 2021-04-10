@@ -36,7 +36,7 @@ namespace Domain.Tests
                 purchaseOrderId: command.PurchaseOrderId);
 
             /// Act
-            var actual = Domain.AddProductToPurchaseOrder(getPurchaseOrder, command);
+            var actual = JC.AddProductToPurchaseOrder(getPurchaseOrder, command);
 
             /// Assert
             CustomAssert.CoreValuesAreEqual(expected, actual);
@@ -76,7 +76,7 @@ namespace Domain.Tests
                 quantity: command.Quantity);
 
             /// Act
-            var actual = Domain.AddProductToPurchaseOrder(getPurchaseOrder, command);
+            var actual = JC.AddProductToPurchaseOrder(getPurchaseOrder, command);
 
             /// Assert
             CustomAssert.CoreValuesAreEqual(expected, actual);
