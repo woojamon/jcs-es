@@ -23,4 +23,7 @@
     <ProjectReference Include="..\..\src\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PurchaseOrders\" />
+  </ItemGroup>
 </Project>

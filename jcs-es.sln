@@ -5,15 +5,15 @@ VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{26602027-0486-4D1C-87FF-9E85B320EE14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "domain", "src\domain\domain.csproj", "{528546AF-52C7-43AB-BB53-1281986731E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\domain\domain.csproj", "{528546AF-52C7-43AB-BB53-1281986731E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "persistence", "src\persistence\persistence.csproj", "{E3366C11-0222-4E72-B10E-F227BD1CC0B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "src\persistence\persistence.csproj", "{E3366C11-0222-4E72-B10E-F227BD1CC0B5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{35103655-9B30-4F51-A435-8E672AA1FDC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "domain.tests", "tests\domain.tests\domain.tests.csproj", "{540500D3-9115-46CE-A0EA-C87009F76B13}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Tests", "tests\domain.tests\domain.tests.csproj", "{540500D3-9115-46CE-A0EA-C87009F76B13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "persistence.tests", "tests\persistence.tests\persistence.tests.csproj", "{AD20B7FA-2D88-4F84-A3ED-CF0EFFE14634}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence.Tests", "tests\persistence.tests\persistence.tests.csproj", "{AD20B7FA-2D88-4F84-A3ED-CF0EFFE14634}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
