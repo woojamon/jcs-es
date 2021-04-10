@@ -43,7 +43,7 @@ namespace Domain.Tests
         }
 
         [Fact]
-        public void AddProductToPurchaseOrder_PurchaseOrderStatusIsUnPaidAndPurchaseOrderHasProduct_ReturnsProductAddedToPurchaseOrderResult()
+        public void AddProductToPurchaseOrder_PurchaseOrderStatusIsUnPaid_ReturnsProductAddedToPurchaseOrderResult()
         {
             /// Arrange
             // Get a command to add a product to a purchase order.
@@ -56,12 +56,12 @@ namespace Domain.Tests
 
             // Get a purchase order aggregate to use  
             // when adding a product to a purchase order,
-            // and make sure that it has the product.
+            // and give it some other product.
             var purchaseOrder = new PurchaseOrderForAddProductTask(
                 purchaseOrderId: command.PurchaseOrderId,
                 status: PurchaseOrderStatus.Unpaid,
                 productIds: Enumerable.Empty<Guid>()
-                    .Append(command.ProductId)
+                    .Append(Guid.NewGuid())
             );
 
             // Get a function that returns the purchase order aggregate
