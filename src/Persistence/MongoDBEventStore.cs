@@ -56,6 +56,11 @@ namespace Persistence
 
         public static PurchaseOrderForAddProductTask GetPurchaseOrderForAddProductTask(IMongoClient client, Guid purchaseOrderId)
         {
+            // The query is basically
+            // select *
+            // from jcs.events
+            // where _type in ('PurchaseOrderCreated','ProductAddedToPurchaseOrder','ProductRemovedFromPurchaseOrder')
+            // and _event.PurchaseOrderId = purchaseOrderId
             return client
                 .GetDatabase("jcs")
                 .GetCollection<BsonDocument>("events")
@@ -72,20 +77,29 @@ namespace Persistence
                             field: new StringFieldDefinition<BsonDocument, string>("PurchaseOrderId"),
                             value: purchaseOrderId.ToString())))
                 .ToList()
+
+                // This is the code that rehydrates the aggregate.
                 .Aggregate(
                     seed: null,
                     func: (PurchaseOrderForAddProductTask acc, BsonDocument doc) =>
                         doc.GetValue("_type").ToString() switch
                         {
-                            nameof(PurchaseOrderCreated) => new PurchaseOrderForAddProductTask(
-                                purchaseOrderId: new Guid(doc.GetValue(nameof(PurchaseOrderCreated.PurchaseOrderId)).ToString()),
-                                status: Enum.Parse<PurchaseOrderStatus>(doc.GetValue(nameof(PurchaseOrderCreated.Status)).ToString()),
-                                productIds: doc.GetValue(nameof(PurchaseOrderCreated.Lines)).AsBsonArray.Select(line =>
-                                    new Guid(line.AsBsonDocument.GetValue(nameof(PurchaseOrderLine.ProductId)).ToString())).ToList()),
-                            nameof(ProductAddedToPurchaseOrder) => new PurchaseOrderForAddProductTask(
-                                purchaseOrderId: acc.PurchaseOrderId,
-                                status: acc.Status,
-                                productIds: acc.ProductIds.Union(new[] { new Guid(doc.GetValue(nameof(ProductAddedToPurchaseOrder.ProductId)).ToString()) }).ToList()),
+                            // If the event is PurchaseOrderCreated then just grab the desired information
+                            nameof(PurchaseOrderCreated) =>
+                                new PurchaseOrderForAddProductTask(
+                                    purchaseOrderId: new Guid(doc.GetValue(nameof(PurchaseOrderCreated.PurchaseOrderId)).ToString()),
+                                    status: Enum.Parse<PurchaseOrderStatus>(doc.GetValue(nameof(PurchaseOrderCreated.Status)).ToString()),
+                                    productIds: doc.GetValue(nameof(PurchaseOrderCreated.Lines)).AsBsonArray.Select(line =>
+                                        new Guid(line.AsBsonDocument.GetValue(nameof(PurchaseOrderLine.ProductId)).ToString())).ToList()),
+
+                            // If the event is ProductAddedToPurchaseOrder then just add the ProductId to the collection
+                            nameof(ProductAddedToPurchaseOrder) =>
+                                new PurchaseOrderForAddProductTask(
+                                    purchaseOrderId: acc.PurchaseOrderId,
+                                    status: acc.Status,
+                                    productIds: acc.ProductIds.Union(new[] { new Guid(doc.GetValue(nameof(ProductAddedToPurchaseOrder.ProductId)).ToString()) }).ToList()),
+
+                            // If the event is ProductRemovedFromPurchaseOrder then just remove the ProductId to the collection
                             nameof(ProductRemovedFromPurchaseOrder) => new PurchaseOrderForAddProductTask(
                                 purchaseOrderId: acc.PurchaseOrderId,
                                 status: acc.Status,
@@ -96,6 +110,11 @@ namespace Persistence
 
         public static PurchaseOrderForRemoveProductTask GetPurchaseOrderForRemoveProductTask(IMongoClient client, Guid purchaseOrderId)
         {
+            // The query is basically
+            // select *
+            // from jcs.events
+            // where _type in ('PurchaseOrderCreated','ProductAddedToPurchaseOrder','ProductRemovedFromPurchaseOrder')
+            // and _event.PurchaseOrderId = purchaseOrderId
             return client
                 .GetDatabase("jcs")
                 .GetCollection<BsonDocument>("events")
@@ -112,24 +131,35 @@ namespace Persistence
                             field: new StringFieldDefinition<BsonDocument, string>("PurchaseOrderId"),
                             value: purchaseOrderId.ToString())))
                 .ToList()
+
+                // This is the code that rehydrates the aggregate.
                 .Aggregate(
                     seed: null,
                     func: (PurchaseOrderForRemoveProductTask acc, BsonDocument doc) =>
                         doc.GetValue("_type").ToString() switch
                         {
-                            nameof(PurchaseOrderCreated) => new PurchaseOrderForRemoveProductTask(
-                                purchaseOrderId: new Guid(doc.GetValue(nameof(PurchaseOrderCreated.PurchaseOrderId)).ToString()),
-                                status: Enum.Parse<PurchaseOrderStatus>(doc.GetValue(nameof(PurchaseOrderCreated.Status)).ToString()),
-                                productIds: doc.GetValue(nameof(PurchaseOrderCreated.Lines)).AsBsonArray.Select(line =>
-                                    new Guid(line.AsBsonDocument.GetValue(nameof(PurchaseOrderLine.ProductId)).ToString())).ToList()),
-                            nameof(ProductAddedToPurchaseOrder) => new PurchaseOrderForRemoveProductTask(
-                                purchaseOrderId: acc.PurchaseOrderId,
-                                status: acc.Status,
-                                productIds: acc.ProductIds.Union(new[] { new Guid(doc.GetValue(nameof(ProductAddedToPurchaseOrder.ProductId)).ToString()) }).ToList()),
-                            nameof(ProductRemovedFromPurchaseOrder) => new PurchaseOrderForRemoveProductTask(
-                                purchaseOrderId: acc.PurchaseOrderId,
-                                status: acc.Status,
-                                productIds: acc.ProductIds.Except(new[] { new Guid(doc.GetValue(nameof(ProductAddedToPurchaseOrder.ProductId)).ToString()) }).ToList()),
+                            // If the event is PurchaseOrderCreated then just grab the desired information
+                            nameof(PurchaseOrderCreated) =>
+                                new PurchaseOrderForRemoveProductTask(
+                                    purchaseOrderId: new Guid(doc.GetValue(nameof(PurchaseOrderCreated.PurchaseOrderId)).ToString()),
+                                    status: Enum.Parse<PurchaseOrderStatus>(doc.GetValue(nameof(PurchaseOrderCreated.Status)).ToString()),
+                                    productIds: doc.GetValue(nameof(PurchaseOrderCreated.Lines)).AsBsonArray.Select(line =>
+                                        new Guid(line.AsBsonDocument.GetValue(nameof(PurchaseOrderLine.ProductId)).ToString())).ToList()),
+
+
+                            // If the event is ProductAddedToPurchaseOrder then just add the ProductId to the collection
+                            nameof(ProductAddedToPurchaseOrder) =>
+                                new PurchaseOrderForRemoveProductTask(
+                                    purchaseOrderId: acc.PurchaseOrderId,
+                                    status: acc.Status,
+                                    productIds: acc.ProductIds.Union(new[] { new Guid(doc.GetValue(nameof(ProductAddedToPurchaseOrder.ProductId)).ToString()) }).ToList()),
+
+                            // If the event is ProductRemovedFromPurchaseOrder then just remove the ProductId to the collection
+                            nameof(ProductRemovedFromPurchaseOrder) =>
+                                new PurchaseOrderForRemoveProductTask(
+                                    purchaseOrderId: acc.PurchaseOrderId,
+                                    status: acc.Status,
+                                    productIds: acc.ProductIds.Except(new[] { new Guid(doc.GetValue(nameof(ProductAddedToPurchaseOrder.ProductId)).ToString()) }).ToList()),
                             _ => throw new NotImplementedException()
                         });
         }
