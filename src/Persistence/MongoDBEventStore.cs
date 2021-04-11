@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using Domain;
-using Domain.PurchaseOrders.ReadModels;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
