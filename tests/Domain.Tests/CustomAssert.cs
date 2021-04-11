@@ -13,15 +13,28 @@ namespace Domain.Tests
                 Assert.Equal(e1.PurchaseOrderId, a1.PurchaseOrderId);
             else if (expected is ProductAddedToPurchaseOrder e2 && actual is ProductAddedToPurchaseOrder a2)
                 Assert.Equal(e2.PurchaseOrderId, a2.PurchaseOrderId);
+            else if (expected is CannotAddDuplicateProductToPurchaseOrder e3 && actual is CannotAddDuplicateProductToPurchaseOrder a3)
+            {
+                Assert.Equal(e3.PurchaseOrderId, a3.PurchaseOrderId);
+                Assert.Equal(e3.ProductId, a3.ProductId);
+            }
             else
+            {
+                Assert.Equal(expected.GetType(), actual.GetType());
                 throw new NotImplementedException();
+            }
         }
         public static void CoreValuesAreEqual(IRemoveProductFromPurchaseOrderResult expected, IRemoveProductFromPurchaseOrderResult actual)
         {
             if (expected is CannotRemoveProductsFromPaidPurchaseOrder e1 && actual is CannotRemoveProductsFromPaidPurchaseOrder a1)
-                Assert.Equal(e1.PurchaseOrderId,a1.PurchaseOrderId);
+                Assert.Equal(e1.PurchaseOrderId, a1.PurchaseOrderId);
             else if (expected is ProductRemovedFromPurchaseOrder e2 && actual is ProductRemovedFromPurchaseOrder a2)
-                Assert.Equal(e2.PurchaseOrderId,a2.PurchaseOrderId);
+                Assert.Equal(e2.PurchaseOrderId, a2.PurchaseOrderId);
+            else if (expected is CannotRemoveProductThatIsNotOnPurchaseOrder e3 && actual is CannotRemoveProductThatIsNotOnPurchaseOrder a3)
+            {
+                Assert.Equal(e3.PurchaseOrderId, a3.PurchaseOrderId);
+                Assert.Equal(e3.ProductId, a3.ProductId);
+            }
             else
                 throw new NotImplementedException();
         }

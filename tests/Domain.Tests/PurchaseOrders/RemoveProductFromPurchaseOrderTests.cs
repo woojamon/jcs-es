@@ -75,5 +75,40 @@ namespace Domain.Tests
             /// Assert
             CustomAssert.CoreValuesAreEqual(expected, actual);
         }
+
+        [Fact]
+        public void RemoveProductFromPurchaseOrder_PurchaseOrderStatusIsUnPaidButPurchaseOrderDoesNotHaveProduct_ReturnsCannotRemoveProductThatIsNotOnPurchaseOrderResult()
+        {
+            /// Arrange
+            // Get a command to remove a product from a purchase order.
+            var command = new RemoveProductFromPurchaseOrder(
+                purchaseOrderId: Guid.NewGuid(),
+                productId: Guid.NewGuid()
+            );
+
+            // Get a purchase order aggregate to use  
+            // when removing a product from a purchase order,
+            // and make sure that it does not have the product.
+            var purchaseOrder = new PurchaseOrderForRemoveProductTask(
+                purchaseOrderId: command.PurchaseOrderId,
+                status: PurchaseOrderStatus.Unpaid,
+                productIds: Enumerable.Empty<Guid>()
+            );
+
+            // Get a function that returns the purchase order aggregate
+            // to use when removing a product from a purchase order. 
+            Func<Guid, PurchaseOrderForRemoveProductTask> getPurchaseOrder = _ => purchaseOrder;
+
+            // Get the event we expect the domain to return.
+            var expected = new CannotRemoveProductThatIsNotOnPurchaseOrder(
+                purchaseOrderId: command.PurchaseOrderId,
+                productId: command.ProductId);
+
+            /// Act
+            var actual = JC.RemoveProductFromPurchaseOrder(getPurchaseOrder, command);
+
+            /// Assert
+            CustomAssert.CoreValuesAreEqual(expected, actual);
+        }
     }
 }

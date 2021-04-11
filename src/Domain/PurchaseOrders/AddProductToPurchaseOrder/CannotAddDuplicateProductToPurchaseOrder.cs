@@ -2,12 +2,16 @@ using System;
 
 namespace Domain
 {
-    public class CannotAddProductsToPaidPurchaseOrder : IAddProductToPurchaseOrderResult
+    public class CannotAddDuplicateProductToPurchaseOrder : IAddProductToPurchaseOrderResult
     {
-        public CannotAddProductsToPaidPurchaseOrder(Guid purchaseOrderId)
+        public CannotAddDuplicateProductToPurchaseOrder(
+            Guid purchaseOrderId,
+            Guid productId)
         {
             PurchaseOrderId = purchaseOrderId;
+            ProductId = productId;
         }
         public Guid PurchaseOrderId { get; }
+        public Guid ProductId { get; }
     }
 }
