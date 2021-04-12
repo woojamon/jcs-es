@@ -102,7 +102,7 @@ namespace Persistence
                             nameof(ProductRemovedFromPurchaseOrder) => new PurchaseOrderForAddProductTask(
                                 purchaseOrderId: acc.PurchaseOrderId,
                                 status: acc.Status,
-                                productIds: acc.ProductIds.Except(new[] { new Guid(doc.GetValue(nameof(ProductAddedToPurchaseOrder.ProductId)).ToString()) }).ToList()),
+                                productIds: acc.ProductIds.Except(new[] { new Guid(doc.GetValue(nameof(ProductRemovedFromPurchaseOrder.ProductId)).ToString()) }).ToList()),
                             _ => throw new NotImplementedException()
                         });  
         }
@@ -158,7 +158,7 @@ namespace Persistence
                                 new PurchaseOrderForRemoveProductTask(
                                     purchaseOrderId: acc.PurchaseOrderId,
                                     status: acc.Status,
-                                    productIds: acc.ProductIds.Except(new[] { new Guid(doc.GetValue(nameof(ProductAddedToPurchaseOrder.ProductId)).ToString()) }).ToList()),
+                                    productIds: acc.ProductIds.Except(new[] { new Guid(doc.GetValue(nameof(ProductRemovedFromPurchaseOrder.ProductId)).ToString()) }).ToList()),
                             _ => throw new NotImplementedException()
                         });
         }
